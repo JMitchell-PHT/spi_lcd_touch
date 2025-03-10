@@ -1,0 +1,18 @@
+{
+    "C_Cpp.intelliSenseEngine": "default",
+    "idf.espIdfPathWin": "C:\\Users\\Jamie\\esp\\v5.4\\esp-idf",
+    "idf.toolsPathWin": "C:\\Users\\Jamie\\.espressif",
+    "idf.pythonInstallPath": "C:\\Users\\Jamie\\.espressif\\tools\\idf-python\\3.11.2\\python.exe",
+    "idf.customExtraVars": {
+        "IDF_TARGET": "esp32s3"
+    },
+    "idf.portWin": "COM4",
+    "idf.flashType": "UART",
+    "files.associations": {
+        "esp_lcd_gc9a01.h": "c",
+        "esp_err.h": "c",
+        "spi_master.h": "c",
+        "i2c_master.h": "c",
+        "lvgl.h": "c"
+    }
+}
