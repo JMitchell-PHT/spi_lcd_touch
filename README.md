@@ -1,9 +1,7 @@
-| Supported Targets | ESP32 | ESP32-C2 | ESP32-C3 | ESP32-C5 | ESP32-C6 | ESP32-C61 | ESP32-H2 | ESP32-P4 | ESP32-S2 | ESP32-S3 |
-| ----------------- | ----- | -------- | -------- | -------- | -------- | --------- | -------- | -------- | -------- | -------- |
 
 # SPI LCD and Touch Panel Example
 
-[esp_lcd](https://docs.espressif.com/projects/esp-idf/en/latest/esp32/api-reference/peripherals/lcd.html) provides several panel drivers out-of box, e.g. ST7789, SSD1306, NT35510. However, there're a lot of other panels on the market, it's beyond `esp_lcd` component's responsibility to include them all.
+[esp_lcd](https://docs.espressif.com/projects/esp-idf/en/latest/esp32/api-reference/peripherals/lcd.html)
 
 `esp_lcd` allows user to add their own panel drivers in the project scope (i.e. panel driver can live outside of esp-idf), so that the upper layer code like LVGL porting code can be reused without any modifications, as long as user-implemented panel driver follows the interface defined in the `esp_lcd` component.
 
@@ -11,9 +9,7 @@ This example shows how to use GC9A01 or ILI9341 display driver from Component ma
 
 This example uses the [esp_timer](https://docs.espressif.com/projects/esp-idf/en/latest/esp32/api-reference/system/esp_timer.html) to generate the ticks needed by LVGL and uses a dedicated task to run the `lv_timer_handler()`. Since the LVGL APIs are not thread-safe, this example uses a mutex which be invoked before the call of `lv_timer_handler()` and released after it. The same mutex needs to be used in other tasks and threads around every LVGL (lv_...) related function call and code. For more porting guides, please refer to [LVGL porting doc](https://docs.lvgl.io/master/porting/index.html).
 
-## Touch controller STMPE610
-
-In this example you can enable touch controller STMPE610 connected via SPI. The SPI connection is shared with LCD screen.
+This example uses esp32-idf i2c driver and FT6336 driver to create a polled touch screen interface.
 
 ## How to use the example
 
@@ -46,8 +42,10 @@ The connection between ESP Board and the LCD is as follows:
 │                      │              │                    │
 │             LCD CS   ├─────────────►│ LCD CS             │
 │                      │              │                    │
-│             TOUCH CS ├─────────────►│ TOUCH CS           │
-│                      │              │                    │
+│            TOUCH SCL ├─────────────►│ TOUCH SCL          │
+│               	   │ 			  │ 				   │
+│ 			 TOUCH SDA │◄────────────►│ TOUCH SDA		   │ 
+│              		   │              │                    │ 
 │             BK_LIGHT ├─────────────►│ BLK                │
 └──────────────────────┘              └────────────────────┘
 ```
